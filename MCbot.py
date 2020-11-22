@@ -1,13 +1,32 @@
 import os
 import discord
+import psutil
 from dotenv import load_dotenv
 
-serverStarted = False
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
 client = discord.Client()
+
+def checkIfProcessRunning(processName):
+    '''
+    Check if there is any running process that contains the given name processName.
+    '''
+    #Iterate over the all the running process
+    for proc in psutil.process_iter():
+        try:
+            # Check if process name contains the given name string.
+            if processName.lower() in proc.name().lower():
+                return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return False;
+
+def serverRunning():
+	if(checkIfProcessRunning('java.exe')):
+		return True
+	else:
+		return False
 
 @client.event
 #run when client is ready
@@ -20,15 +39,16 @@ async def on_message(message):
 		return
 
 	if message.content == "/start":
-		if(serverStarted):
-			await message.channel.send("Server is running")
+		if(serverRunning()):
+			await message.channel.send("Server is already running")
 		else:
 			await message.channel.send("Starting server")
 			os.system("")
 	elif message.content == "/stop":
-		await message.channel.send("Closing Server")
-	elif message.content == "/stats":
-		await message.channel.send("There are X players on the server right now\n and the server has been live for X minutes")
+		if(serverRunning()):
+			await message.channel.send("Closing Server")
+		else:
+			await message.channel.send("Server isn't running ")
 
 	print("message received:", message.content)
 
