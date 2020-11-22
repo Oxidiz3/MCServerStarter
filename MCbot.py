@@ -1,6 +1,8 @@
 import os
 import discord
 import psutil
+import subprocess
+
 from dotenv import load_dotenv
 
 
@@ -43,8 +45,7 @@ async def on_message(message):
 			await message.channel.send("Server is already running")
 		else:
 			await message.channel.send("Starting server")
-			os.chdir("C:/Users/Lynn/Desktop/Server")
-			os.system("startup.bat")
+			subprocess.Popen("startup.bat", cwd="C:/Users/Lynn/Desktop/Server")
 	elif message.content == "/stop":
 		if(serverRunning()):
 			await message.channel.send("Closing Server")
