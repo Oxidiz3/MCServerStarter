@@ -45,7 +45,8 @@ async def on_message(message):
 			await message.channel.send("Server is already running")
 		else:
 			await message.channel.send("Starting server")
-			subprocess.Popen("startup.bat", cwd="C:/Users/Lynn/Desktop/Server")
+			os.chdir("C:/Users/Lynn/Desktop/Server")
+			subprocess.Popen("startup.bat", shell=True)
 	elif message.content == "/stop":
 		if(serverRunning()):
 			await message.channel.send("Closing Server")
