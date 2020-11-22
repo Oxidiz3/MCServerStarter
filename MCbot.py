@@ -37,19 +37,21 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+	sb = ""
 	if message.author == client.user:
 		return
-
+	
 	if message.content == "/start":
 		if(serverRunning()):
 			await message.channel.send("Server is already running")
 		else:
 			await message.channel.send("Starting server")
 			os.chdir("C:/Users/Lynn/Desktop/Server")
-			subprocess.Popen("startup.bat", shell=True)
+			sb = subprocess.Popen("startup.bat", shell=True)
 	elif message.content == "/stop":
 		if(serverRunning()):
 			await message.channel.send("Closing Server")
+			sb.stdin.write('/stop'.encode())
 		else:
 			await message.channel.send("Server isn't running")
 
