@@ -43,7 +43,7 @@ async def on_message(message):
 			await message.channel.send("Server is already running")
 		else:
 			await message.channel.send("Starting server")
-			os.system("")
+			os.system("C:\Users\Lynn\Desktop\Server\startup.bat")
 	elif message.content == "/stop":
 		if(serverRunning()):
 			await message.channel.send("Closing Server")
