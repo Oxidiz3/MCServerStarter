@@ -37,24 +37,55 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-	sb = ""
-	if message.author == client.user:
-		return
-	
-	if message.content == "/start":
-		if(serverRunning()):
-			await message.channel.send("Server is already running")
-		else:
-			await message.channel.send("Starting server")
-			os.chdir("C:/Users/Lynn/Desktop/Server")
-			sb = subprocess.Popen("startup.bat", shell=True)
-	elif message.content == "/stop":
-		if(serverRunning()):
-			await message.channel.send("Closing Server")
-			sb.stdin.write('/stop'.encode())
-		else:
-			await message.channel.send("Server isn't running")
+    if message.author == client.user:
+            return
+    
+    if message.content == "/start":
+            if(serverRunning()):
+                    await message.channel.send("Server is already running")
+            else:
+                    await message.channel.send("Starting server")
+                    os.chdir("C:/Users/Lynn/Desktop/Server")
+                    sb = subprocess.Popen("startup.bat", shell=True)
+    elif message.content == "/stop":
+            if(serverRunning()):
+                    await message.channel.send("Closing Server")
+                    sb.stdin.write('/stop'.encode())
+            else:
+                    await message.channel.send("Server isn't running")
 
-	print("message received:", message.content)
+    print("message received:", message.content)
 
 client.run(TOKEN)
+##
+##
+##process_id = 0
+##def on_message(message):
+##    if message.content == "/start":
+##        
+##        process_id = start()
+##        if process_id > 0 && process_id not == False:
+##            return true
+##        else:
+##            return false
+##    elif message.content == "/stop":
+##       result = stop(process_id)
+##    else:
+##        return "Server isn't started yet"
+##
+##def start():
+##    #Start procedures
+##    return sb.process_id();
+##
+##
+##def stop(process_id):
+##    #Send stop command to process using the process id
+##    if not serverRunning():
+##        process_id = 0
+##        return true
+##    else:
+##        print("ERROR ERROR SERVER IS NOT RESPONDING")
+##        return false
+##    
+        
+    
