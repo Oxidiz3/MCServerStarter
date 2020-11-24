@@ -53,8 +53,6 @@ async def on_message(message):
             else:
                     await message.channel.send("Server isn't running")
 
-    print("message received:", message.content)
-
 client.run(TOKEN)
 ##
 ##
