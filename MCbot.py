@@ -84,5 +84,3 @@ client.run(TOKEN)
 ##        print("ERROR ERROR SERVER IS NOT RESPONDING")
 ##        return false
 ##    
-        
-    
