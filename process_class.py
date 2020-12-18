@@ -1,9 +1,12 @@
+import subprocess
 import os
 import discord
 import subprocess
 
-import psutil
 from mcstatus import MinecraftServer
+
+from MCbot import serverRunning
+
 
 class Process:
     def __init__(self, Token):
@@ -75,22 +78,5 @@ class Process:
                 return False
         else:
             return False
-
-def checkIfProcessRunning(processName):
-    # Iterate over the all the running process
-    for proc in psutil.process_iter():
-        try:
-            # Check if process name contains the given name string.
-            if processName.lower() in proc.name().lower():
-                return True
-        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-            pass
-    return False
-
-def serverRunning():
-    if checkIfProcessRunning('java.exe'):
-        return True
-    else:
-        return False
 
 
