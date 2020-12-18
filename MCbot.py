@@ -1,12 +1,13 @@
 import os
-import discord
+# import discord
 import psutil
-import subprocess
+# import subprocess
 from dotenv import load_dotenv
-
+from process_class import Process
+import time, threading
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-client = discord.Client()
+# client = discord.Client()
 
 def checkIfProcessRunning(processName):
     # Iterate over the all the running process
@@ -20,40 +21,57 @@ def checkIfProcessRunning(processName):
     return False
 
 def serverRunning():
-    if(checkIfProcessRunning('java.exe')):
+    if checkIfProcessRunning('java.exe'):
         return True
     else:
         return False
 
-def startServer():
-    os.chdir("C:/Users/Lynn/Desktop/Server")
-    process = subprocess.Popen(
-        "startup.bat", shell=True, stdin=subprocess.PIPE)
+process = Process(TOKEN)
+
+# start_time = time.time()
+# while True:
+#     current_time = time.time()
+#     current_player_count = process.check_for_players()
+#     if current_player_count == 0:
+#         if current_time - start_time >= 5000:
+#             process.stop_if_players_0()
+#             start_time = time.time()
+#     time.sleep(10)
+
+# s
+
+
+# def startServer():
+#     os.chdir("C:/Users/Lynn/Desktop/Server")
+#     process = subprocess.Popen(
+#         "startup.bat", shell=True, stdin=subprocess.PIPE)
 
 # ===Discord Events===
-@client.event
-async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+# @client.event
+# async def on_ready():
+#     print(f'{client.user} has connected to Discord!')
+#
+#
+# @client.event
+# async def on_message(message):
+#     if message.author == client.user:
+#         return
+#
+#     if message.content == "/start":
+#         if(serverRunning()):
+#             await message.channel.send("Server is already running")
+#         else:
+#             await message.channel.send("Starting server")
+#             # startServer()
+#             os.chdir("C:/Users/Lynn/Desktop/Server")
+#             process = subprocess.Popen("startup.bat", shell=True, stdin=subprocess.PIPE)
+#     elif message.content == "/stop":
+#         if(serverRunning()):
+#             await message.channel.send("Closing Server")
+#         else:
+#             await message.channel.send("Server isn't running")
 
-
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content == "/start":
-        if(serverRunning()):
-            await message.channel.send("Server is already running")
-        else:
-            await message.channel.send("Starting server")
-            startServer()
-    elif message.content == "/stop":
-        if(serverRunning()):
-            await message.channel.send("Closing Server")
-        else:
-            await message.channel.send("Server isn't running")
-
-client.run(TOKEN)
+# client.run(TOKEN)
 
 
 ##
