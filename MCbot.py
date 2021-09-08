@@ -26,9 +26,9 @@ def serverRunning():
         return False
 
 def startServer():
-    os.chdir("C:/Users/Lynn/Desktop/Server")
+    os.chdir("/home/smecham/ForgeServer")
     process = subprocess.Popen(
-        "startup.bat", shell=True, stdin=subprocess.PIPE)
+        "start.bin", shell=True, stdin=subprocess.PIPE)
 
 # ===Discord Events===
 @client.event
@@ -55,34 +55,3 @@ async def on_message(message):
 
 client.run(TOKEN)
 
-
-##
-##
-##process_id = 0
-# def on_message(message):
-# if message.content == "/start":
-##
-##        process_id = start()
-# if process_id > 0 && process_id not == False:
-# return true
-# else:
-# return false
-# elif message.content == "/stop":
-##       result = stop(process_id)
-# else:
-# return "Server isn't started yet"
-##
-# def start():
-# Start procedures
-# return sb.process_id();
-##
-##
-# def stop(process_id):
-# Send stop command to process using the process id
-# if not serverRunning():
-##        process_id = 0
-# return true
-# else:
-##        print("ERROR ERROR SERVER IS NOT RESPONDING")
-# return false
-##
