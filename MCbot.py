@@ -28,7 +28,7 @@ def serverRunning():
 def startServer():
     os.chdir("/home/smecham/ForgeServer")
     process = subprocess.Popen(
-        "/home/smecham/ForgeServer/start.bin", shell=True, stdin=subprocess.PIPE)
+        "/home/smecham/ForgeServer/start.sh", shell=True, stdin=subprocess.PIPE)
 
 # ===Discord Events===
 @client.event
