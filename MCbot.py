@@ -25,7 +25,7 @@ class ServerManager:
             "/home/smecham/ForgeServer/start.sh",
             shell=True,
             stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
+            # stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
 
@@ -65,11 +65,11 @@ async def on_message(message):
             await message.channel.send("Starting server")
             server_manager.startServer()
     elif message.content == "/stop":
-        if server_manager.serverRunning():
-            await message.channel.send("Closing Server")
-            server_manager.close_server()
-        else:
-            await message.channel.send("Server isn't running")
+        # if server_manager.serverRunning():
+        await message.channel.send("Closing Server")
+        server_manager.close_server()
+        # else:
+        #     await message.channel.send("Server isn't running")
 
 
 client.run(server_manager.TOKEN)
