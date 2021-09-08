@@ -1,3 +1,4 @@
+from logging import exception
 import os
 import discord
 import psutil
@@ -12,6 +13,7 @@ class ServerManager:
         load_dotenv()
         self.TOKEN = os.getenv("DISCORD_TOKEN")
         self.process = None
+        self.server_is_running = False
 
     def serverRunning(self):
         if self.checkIfProcessRunning("java.exe"):
@@ -30,7 +32,8 @@ class ServerManager:
         )
 
     def close_server(self):
-        self.process.communicate("stop")
+        # the message has to be encoded or it will throw an error
+        self.process.communicate("stop".encode())[0]
         print("CLOSING SERVER =======================")
 
     def checkIfProcessRunning(self, processName):
@@ -65,11 +68,12 @@ async def on_message(message):
             await message.channel.send("Starting server")
             server_manager.startServer()
     elif message.content == "/stop":
-        # if server_manager.serverRunning():
-        await message.channel.send("Closing Server")
-        server_manager.close_server()
-        # else:
-        #     await message.channel.send("Server isn't running")
+        try:
+            await message.channel.send("Closing Server")
+            server_manager.close_server()
+        except Exception as e:
+            await message.channel.send(e)
+            print(e)
 
 
 client.run(server_manager.TOKEN)
