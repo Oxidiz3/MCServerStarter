@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
+process
 
 def checkIfProcessRunning(processName):
     # Iterate over the all the running process
@@ -26,9 +27,15 @@ def serverRunning():
         return False
 
 def startServer():
+    global process
     os.chdir("/home/smecham/ForgeServer")
     process = subprocess.Popen(
-        "/home/smecham/ForgeServer/start.sh", shell=True, stdin=subprocess.PIPE)
+        "/home/smecham/ForgeServer/start.sh", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+def close_server():
+    global process
+    process.communicate("stop")
+    print("CLOSING SERVER =======================")
 
 # ===Discord Events===
 @client.event
@@ -50,6 +57,7 @@ async def on_message(message):
     elif message.content == "/stop":
         if(serverRunning()):
             await message.channel.send("Closing Server")
+            close_server()
         else:
             await message.channel.send("Server isn't running")
 
