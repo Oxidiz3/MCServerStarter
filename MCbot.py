@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
-process
+process = None
 
 def checkIfProcessRunning(processName):
     # Iterate over the all the running process
