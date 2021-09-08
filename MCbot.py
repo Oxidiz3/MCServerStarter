@@ -4,12 +4,13 @@ import psutil
 import subprocess
 from dotenv import load_dotenv
 
+client = discord.Client()
+
 
 class ServerManager:
     def __init__(self):
         load_dotenv()
         self.TOKEN = os.getenv("DISCORD_TOKEN")
-        self.client = discord.Client()
         self.process = None
 
     def serverRunning(self):
